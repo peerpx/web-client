@@ -26,7 +26,7 @@ const PublicRoutes = ({history, isLoggedIn}) => {
 				<Route exact path={'/logout'} component={asyncComponent(() => import('./containers/Account/Logout'))}/>
 				<Route exact path={'/recover'} component={asyncComponent(() => import('./containers/Account/Recover'))}/>
 
-				<RestrictedRoute path="/dashboard" component={Dashboard} isLoggedIn={isLoggedIn}/>
+				<RestrictedRoute path="/me" component={Dashboard} isLoggedIn={isLoggedIn}/>
 			</div>
 		</ConnectedRouter>
 	)

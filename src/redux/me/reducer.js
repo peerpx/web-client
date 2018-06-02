@@ -9,6 +9,7 @@ export default function meReducer(state = initState, action) {
 	switch (type) {
 
 		case actions.LOGIN_SUCCESS:
+			console.log('LOGIN_SUCCESS', payload)
 			return payload
 
 		case actions.SIGNUP_SUCCESS:

@@ -41,8 +41,8 @@ class Home extends Component {
 export default connect(
 	// mapStateToProps
 	state => ({
-		total: state.Photos.total,
-		photos: state.Photos.data
+		total: state.Photos.total || 0,
+		photos: state.Photos.data || [0]
 	}),
 
 	// mapDispatchToProps

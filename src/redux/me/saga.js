@@ -20,8 +20,12 @@ export function* checkMe() {
 	yield takeEvery(actions.CHECK_ME, function* () {
 		console.info('[SAGA] me.checkMe()')
 
+		const cookie = getCookie('ppx')
+		if(!cookie) return
+
 		try{
 			const user = yield api.UserMe()
+			console.log('so user is', user)
 
 			if(user){
 				yield put({type: actions.LOGIN_SUCCESS, payload: user})
@@ -46,6 +50,7 @@ export function* login(){
 
 			yield put({type: actions.LOGIN_SUCCESS, payload: user})
 			loginSuccessMessage(user.username)
+			yield put(push('/me/account'))
 
 		} catch(err){
 			console.error('🔥 Error Login', err.message)
@@ -58,6 +63,7 @@ export function* login(){
 export function* logout() {
 	yield takeEvery(actions.LOGOUT, function* () {
 		console.info('[SAGA] me.logout()')
+		document.cookie = 'ppx=; expires=Thu, 25 Jun 2015 17:09:01 GMT;'; // 👶 number 2
 		yield put(push('/'))
 	})
 }
@@ -89,11 +95,18 @@ export function* signupRedirect(){
 		console.info('[SAGA] me.signupRedirect()', payload)
 
 		yield delay(3000)
-		yield put(push('/account'))
+		yield put(push('/me/account'))
 	})
 }
 
 //--
+
+function getCookie(name) {
+	const value = "; " + document.cookie;
+	const parts = value.split("; " + name + "=");
+	if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
 
 export default function* rootSaga(){
 	yield all([
