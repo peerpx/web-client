@@ -1,18 +1,16 @@
 import axios from 'axios'
 
 const instance = axios.create({
-	baseURL: process.env.REACT_APP_API_BASE_URL,
+	baseURL: (process.env.REACT_APP_API_BASE_URL || '') + '/api',
 
 	headers: {
 		'Accept': 'application/json',
-		'Content-Type': 'application/json',
-		'X-Api-Key': process.env.REACT_APP_API_KEY
+		'Content-Type': 'application/json'
 	},
 
 	mode: 'cors',
 	withCredentials: true,
 	credentials: 'same-origin',
-	//crossdomain: true,
 
 	validateStatus: function (status) {
 		return true
