@@ -52,7 +52,7 @@ class Recover extends Component {
 							</Form.Item>
 
 							<br />
-							<Link to="/signin">Oops, I just remember my password</Link>
+							<Link to="/a/signin">Oops, I just remember my password</Link>
 
 						</Form>
 

@@ -1,11 +1,13 @@
 import axios from 'axios'
+import {eventChannel, END} from 'redux-saga'
 
 const instance = axios.create({
 	baseURL: (process.env.REACT_APP_API_BASE_URL || '') + '/api',
 
 	headers: {
 		'Accept': 'application/json',
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
+		'X-Api-Key': 'QmU2TQthpXDj8QNK6jyqpWsjgDmr3E9Hn3F6zTahGGvZUC'
 	},
 
 	mode: 'cors',
@@ -42,9 +44,42 @@ export const PhotoDelete = function(hash){
 		})
 }
 
+export const PhotoUploadProgress = function(file, props={}){
+	console.log("uploadProgress()", file)
+
+	const data = new FormData()
+	data.append('file', file)
+	data.append('data', "{}")
+
+	return eventChannel(emitter => {
+
+		instance.post('/v1/photo', data, {
+			onUploadProgress: (progressEvent) => {
+				const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+				emitter(percent)
+			}
+		})
+		.then(res => {
+			//console.log('RAW', res)
+
+			if(res.status >= 200 && res.status < 300) {
+				emitter(res.data)
+				emitter(END)
+			}else{
+				emitter(new Error('Error while uploading a picture code:'+res.status))
+			}
+
+		})
+
+		// The subscriber must return an unsubscribe function
+		return () => {}
+	})
+
+}
+
 //-- User
 
-export const UserLogin = function(login, password, remember){
+export const UserLogin = function(login, password){
 
 	console.log('[API] UserLogin')
 

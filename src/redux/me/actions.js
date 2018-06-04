@@ -17,9 +17,9 @@ const actions = {
 		type: actions.CHECK_ME
 	}),
 
-	login: (login, password, remember) => ({
+	login: (login, password) => ({
 		type: actions.LOGIN,
-		payload: {login, password, remember}
+		payload: {login, password}
 	}),
 
 	logout: () => ({

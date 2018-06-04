@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from "react-redux"
-import {Input, Button, message, Form} from 'antd'
+import {Link} from 'react-router-dom'
+import {Input, Button, message, Form, Divider} from 'antd'
 
 import Header from '../App/Header'
 import {CenterCard} from '../App/CenterCard.style'
@@ -16,19 +17,16 @@ const errorPassword = () => {
 	message.error('Your password is not valid, please pick another one ! ✌️');
 }
 
-/*const successRegistration = () => {
-	message.success('Congrats! 👏');
-}*/
+//const	rand = Math.round(Math.random() * 1000)
 
 //--
-const	rand = Math.round(Math.random() * 1000)
 
 class UserCreate extends Component {
 
 	state = {
-		email: 'bm-'+rand+'@kappuccino.org',
-		username: 'benjamin'+rand,
-		password: 'benjamin123'
+		email: '',    //'bm-'+rand+'@kappuccino.org',
+		username: '', //'benjamin'+rand,
+		password: ''  //'benjamin123'
 	}
 
 	isPasswordValid = password => {
@@ -82,7 +80,13 @@ class UserCreate extends Component {
 								       onChange={this.handleInput.bind(this, 'password')} />
 							</Form.Item>
 
-							<Button htmlType="submit" type="primary" size="large" className="full-width">Valider</Button>
+							<Button htmlType="submit" type="primary" size="large" className="full-width">Signup !</Button>
+
+							<Divider>or</Divider>
+
+							<Link to="/a/signin">Signin</Link>
+
+
 						</form>
 
 

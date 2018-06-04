@@ -19,14 +19,15 @@ const PublicRoutes = ({history, isLoggedIn}) => {
 	return (
 		<ConnectedRouter history={history}>
 			<div>
-				<Route exact path={'/'} component={asyncComponent(() => import('./containers/Home/Home'))}/>
+				<Route exact path={'/'}  component={asyncComponent(() => import('./containers/Home/Home'))}/>
+				<Route exact path={'/a'} component={asyncComponent(() => import('./containers/Home/Home'))}/>
 
-				<Route exact path={'/signin'} component={asyncComponent(() => import('./containers/Account/Signin'))}/>
-				<Route exact path={'/signup'} component={asyncComponent(() => import('./containers/Account/Signup'))}/>
-				<Route exact path={'/logout'} component={asyncComponent(() => import('./containers/Account/Logout'))}/>
-				<Route exact path={'/recover'} component={asyncComponent(() => import('./containers/Account/Recover'))}/>
+				<Route exact path={'/a/signin'} component={asyncComponent(() => import('./containers/Account/Signin'))}/>
+				<Route exact path={'/a/signup'} component={asyncComponent(() => import('./containers/Account/Signup'))}/>
+				<Route exact path={'/a/logout'} component={asyncComponent(() => import('./containers/Account/Logout'))}/>
+				<Route exact path={'/a/recover'} component={asyncComponent(() => import('./containers/Account/Recover'))}/>
 
-				<RestrictedRoute path="/me" component={Dashboard} isLoggedIn={isLoggedIn}/>
+				<RestrictedRoute path="/a/me" component={Dashboard} isLoggedIn={isLoggedIn}/>
 			</div>
 		</ConnectedRouter>
 	)

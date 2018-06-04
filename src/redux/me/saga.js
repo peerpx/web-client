@@ -18,14 +18,14 @@ const signupSuccessMessage = username => {
 
 export function* checkMe() {
 	yield takeEvery(actions.CHECK_ME, function* () {
-		console.info('[SAGA] me.checkMe()')
+		//console.info('[SAGA] me.checkMe()')
 
 		const cookie = getCookie('ppx')
 		if(!cookie) return
 
 		try{
 			const user = yield api.UserMe()
-			console.log('so user is', user)
+			//console.log('so user is', user)
 
 			if(user){
 				yield put({type: actions.LOGIN_SUCCESS, payload: user})
@@ -41,16 +41,16 @@ export function* checkMe() {
 
 export function* login(){
 	yield takeEvery(actions.LOGIN, function* ({payload}) {
-		console.info('[SAGA] me.login()', payload)
+		//console.info('[SAGA] me.login()', payload)
 
-		const {login, password, remember} = payload
+		const {login, password} = payload
 
 		try{
-			const user = yield api.UserLogin(login, password, remember)
+			const user = yield api.UserLogin(login, password)
 
 			yield put({type: actions.LOGIN_SUCCESS, payload: user})
 			loginSuccessMessage(user.username)
-			yield put(push('/me/account'))
+			yield put(push('/a/me/account'))
 
 		} catch(err){
 			console.error('🔥 Error Login', err.message)
@@ -62,7 +62,7 @@ export function* login(){
 
 export function* logout() {
 	yield takeEvery(actions.LOGOUT, function* () {
-		console.info('[SAGA] me.logout()')
+		//console.info('[SAGA] me.logout()')
 		document.cookie = 'ppx=; expires=Thu, 25 Jun 2015 17:09:01 GMT;'; // 👶 number 2
 		yield put(push('/'))
 	})
@@ -70,7 +70,7 @@ export function* logout() {
 
 export function* signup(){
 	yield takeEvery(actions.SIGNUP, function* ({payload}) {
-		console.info('[SAGA] me.signup()', payload)
+		//console.info('[SAGA] me.signup()', payload)
 
 		const {email, username, password} = payload
 
@@ -92,10 +92,10 @@ export function* signupRedirect(){
 	const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 	yield takeEvery(actions.SIGNUP_SUCCESS, function* ({payload}) {
-		console.info('[SAGA] me.signupRedirect()', payload)
+		//console.info('[SAGA] me.signupRedirect()', payload)
 
 		yield delay(3000)
-		yield put(push('/me/account'))
+		yield put(push('/a/me/account'))
 	})
 }
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from "react-redux"
 import {Link} from "react-router-dom"
-import {Form, Button, Input, Checkbox} from 'antd'
+import {Form, Button, Input, Divider} from 'antd'
 
 import actions from '../../redux/me/actions'
 
@@ -19,14 +19,13 @@ const formItemLayout = {
 class Signin extends Component {
 
 	state = {
-		login: 'admin',
-		password: 'adminadmin',
-		remember: false
+		login: '',
+		password: ''
 	}
 
 	handleSubmit = e => {
 		e.preventDefault()
-		this.props.login(this.state.login, this.state.password, this.state.remember)
+		this.props.login(this.state.login, this.state.password)
 	}
 
 	handleInput = (name, e) => {
@@ -35,15 +34,7 @@ class Signin extends Component {
 		})
 	}
 
-	handleRemember = e => {
-		this.setState({
-			remember: e.target.checked
-		})
-	}
-
 	render() {
-
-		const { getFieldDecorator } = this.props.form
 
 		return (
 			<div>
@@ -66,20 +57,13 @@ class Signin extends Component {
 							</Form.Item>
 
 							<Form.Item>
-								{getFieldDecorator('remember', {
-									valuePropName: 'checked',
-									initialValue: this.state.remember,
-								})(
-									<Checkbox onChange={this.handleRemember}>Remember me</Checkbox>
-								)}
-
-								<Link to="/recover" style={{float: 'right'}}>Lost your password</Link>
 								<Button type="primary" htmlType="submit" size="large" className="fullWidth">Login</Button>
+								<Link to="/a/recover" style={{float: 'right'}}>Lost your password</Link>
 							</Form.Item>
 
-							<br />
+							<Divider>or</Divider>
 
-							<Link to="/signup">Create an account</Link>
+							<Link to="/a/signup">Create an account</Link>
 
 						</Form>
 

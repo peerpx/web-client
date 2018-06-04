@@ -15,17 +15,17 @@ class Header extends Component {
 
 				<HeaderRight>
 					{this.props.isLoggedIn &&
-					<div>
-						Bonjour {this.props.user.username}
-						&nbsp;
-						<Link to="/logout">logout</Link>
-					</div>
+					<ul>
+						<li>Bonjour {this.props.user.username}</li>
+						<li><Link to="/a/me">My Account</Link></li>
+						<li><Link to="/a/logout">Logout</Link></li>
+					</ul>
 					}
 
 					{!this.props.isLoggedIn &&
 					<ul>
-						<li><Link to="/signin">Se connecter</Link></li>
-						<li><Link to="/signup">Créer un compte</Link></li>
+						<li><Link to="/a/signin">Signin</Link></li>
+						<li><Link to="/a/signup">Signup</Link></li>
 					</ul>
 					}
 
