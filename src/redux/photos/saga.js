@@ -38,11 +38,12 @@ export function* uploadFiles(){
 			upload: true,
 			progress: 0,
 			id: Math.random(),
-			file
+			preview: file.preview
 		}
 
 		// Create the Object in the DataStore
 		yield put({type: actions.UPLOAD_FILE, payload: obj})
+		//return
 
 		// Starts the upload
 		const upload = yield call(api.PhotoUploadProgress, file, props)
@@ -68,10 +69,6 @@ export function* uploadFiles(){
 			console.error('Fuck !', err)
 			errorUpload(err.message)
 		}
-		/*finally {
-			console.log('upload terminated')
-		}*/
-
 	}
 
 	yield takeEvery(actions.UPLOAD_FILES, function* ({payload}){
