@@ -3,9 +3,10 @@ import {connect} from "react-redux"
 
 import actions from '../../redux/photos/actions'
 
-import PhotoThumbnail from '../../components/photo-thumbnail'
 import Header from '../App/Header'
 import Uploader from '../../components/uploader'
+import Centered from '../App/CenterContent.style'
+import PhotoCard from '../App/PhotoCard'
 
 class Home extends Component {
 
@@ -21,8 +22,6 @@ class Home extends Component {
 
 	render() {
 
-		const photos = this.props.photos
-
 		return (
 			<div>
 
@@ -37,23 +36,15 @@ class Home extends Component {
 					</Fragment>
 					}
 
-					Nous avons {this.props.total} photos !
+					<Centered>
+						<Centered.Content>
 
-					<ul>
-						{photos.map((photo, index) =>
-							<li key={index}>
-								{/*<pre>{JSON.stringify(photo, null, 2)}</pre>*/}
+							{this.props.photos.map((p, index) =>
+								<PhotoCard key={index} photo={p} />
+							)}
 
-								{photo.upload &&
-									<span>Upload: {photo.progress} %</span>
-								}
-
-								{!photo.upload &&
-									<PhotoThumbnail photo={photo} width={150} />
-								}
-							</li>
-						)}
-					</ul>
+						</Centered.Content>
+					</Centered>
 
 					{/*<pre>{ JSON.stringify(this.props.photos, null, 2) }</pre>*/}
 				</div>
@@ -69,7 +60,7 @@ export default connect(
 	state => ({
 		isLoggedIn: !!state.Me.username,
 		total: state.Photos.total || 0,
-		photos: state.Photos.data || [0]
+		photos: state.Photos.data || []
 	}),
 
 	// mapDispatchToProps
