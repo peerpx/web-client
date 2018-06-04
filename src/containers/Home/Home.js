@@ -45,7 +45,7 @@ class Home extends Component {
 								{/*<pre>{JSON.stringify(photo, null, 2)}</pre>*/}
 
 								{photo.upload &&
-								<span>Upload: {photo.progress} %</span>
+									<span>Upload: {photo.progress} %</span>
 								}
 
 								{!photo.upload &&
