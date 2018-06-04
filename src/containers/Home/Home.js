@@ -42,15 +42,15 @@ class Home extends Component {
 					<ul>
 						{photos.map((photo, index) =>
 							<li key={index}>
-								<pre>{JSON.stringify(photo, null, 2)}</pre>
+								{/*<pre>{JSON.stringify(photo, null, 2)}</pre>*/}
 
-								{/*{photo.upload &&
+								{photo.upload &&
 								<span>Upload: {photo.progress} %</span>
-								}*/}
+								}
 
-								{/*{!photo.upload &&
+								{!photo.upload &&
 									<PhotoThumbnail photo={photo} width={150} />
-								}*/}
+								}
 							</li>
 						)}
 					</ul>
