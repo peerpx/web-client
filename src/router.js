@@ -11,7 +11,7 @@ const RestrictedRoute = ({component: Component, isLoggedIn, ...rest}) => (
 	<Route {...rest}
 	       render={props => isLoggedIn
 		       ? <Component {...props} />
-		       : <Redirect to={ {pathname: '/signin', state: {from: props.location}} } />}
+		       : <Redirect to={ {pathname: '/a/signin', state: {from: props.location}} } />}
 	/>
 )
 
@@ -36,7 +36,7 @@ const PublicRoutes = ({history, isLoggedIn}) => {
 export default connect(
 	// mapStateToProps
 	state => ({
-		isLoggedIn: state.Me.username !== null
+		isLoggedIn: !!state.Me.username
 	}),
 	// mapDispatchToProps
 	{

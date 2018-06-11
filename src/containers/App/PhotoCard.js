@@ -42,6 +42,8 @@ class PhotoCard extends Component {
 			<Wrapper>
 				{/*<pre>{JSON.stringify(this.props.photo, null, 2)}</pre>*/}
 
+				Progress: {photo.progress} %
+
 				{photo.progress &&
 				<div className={`progress ${photo.progress === 100 ? 'completed' : ''}`}>
 					<div className="bar" style={{width: photo.progress+'%'}}/>
@@ -50,10 +52,12 @@ class PhotoCard extends Component {
 
 				<div className="media">
 					{photo.preview && <img src={photo.preview} /> }
-					{!photo.preview && <PhotoThumbnail photo={this.props.photo} width={900} />}
+					{!photo.preview && <PhotoThumbnail photo={photo} width={900} />}
 				</div>
 
-
+				<div className="name">
+					{photo.Name}
+				</div>
 
 			</Wrapper>
 		)

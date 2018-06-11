@@ -13,6 +13,8 @@ class Dashboard extends Component {
 
 				<h1>Dashboard</h1>
 
+				Un autre routeur .... plus tard
+
 
 			</div>
 		)
@@ -23,7 +25,7 @@ class Dashboard extends Component {
 export default connect(
 	// mapStateToProps
 	state => ({
-		isLoggedIn: state.Me.username !== null
+		isLoggedIn: !!state.Me.username
 	}),
 
 	// mapDispatchToProps

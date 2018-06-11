@@ -5,6 +5,7 @@ export const CenterCard = styled.div`
 	overflow-y: scroll;
 	display: flex;
 `
+
 CenterCard.Content = styled.div`
 	width: 400px;
 	margin: auto;
@@ -22,4 +23,5 @@ CenterCard.Content = styled.div`
 	.fullWidth{
 		width: 100%;
 	}
+
 `

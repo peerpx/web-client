@@ -6,8 +6,7 @@ const instance = axios.create({
 
 	headers: {
 		'Accept': 'application/json',
-		'Content-Type': 'application/json',
-		'X-Api-Key': 'QmU2TQthpXDj8QNK6jyqpWsjgDmr3E9Hn3F6zTahGGvZUC'
+		'Content-Type': 'application/json'
 	},
 
 	mode: 'cors',

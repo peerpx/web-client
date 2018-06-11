@@ -81,7 +81,7 @@ const WrappedNormalLoginForm = Form.create()(Signin)
 export default connect(
 	// mapStateToProps
 	state => ({
-		isLoggedIn: state.Me.username !== null
+		isLoggedIn: !!state.Me.username
 	}),
 
 	// mapDispatchToProps

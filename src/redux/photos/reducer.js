@@ -2,10 +2,11 @@ import actions from './actions'
 
 const initState = {
 	total: 0,
+	offset: 10,
 	data: []
 }
 
-export default function agenciesReducer(state = initState, action) {
+export default function photosReducer(state = initState, action) {
 
 	const {type, payload} = action
 
@@ -32,7 +33,7 @@ export default function agenciesReducer(state = initState, action) {
 			return {
 				...state,
 				data: state.data.map(d => {
-					if(d.id === payload.prev.id) return payload.next
+					if (d.id === payload.prev.id) return payload.next
 					return d
 				})
 			}

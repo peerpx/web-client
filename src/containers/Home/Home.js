@@ -40,7 +40,7 @@ class Home extends Component {
 						<Centered.Content>
 
 							{this.props.photos.map((p, index) =>
-								<PhotoCard key={index} photo={p} />
+								<PhotoCard key={p.Hash || index} photo={p} />
 							)}
 
 						</Centered.Content>
@@ -59,7 +59,6 @@ export default connect(
 	// mapStateToProps
 	state => ({
 		isLoggedIn: !!state.Me.username,
-		total: state.Photos.total || 0,
 		photos: state.Photos.data || []
 	}),
 
