@@ -99,9 +99,9 @@ export const UserMe = function(){
 
 	return instance.get('/v1/user/me')
 		.then(res => {
-			const data = res.data
-			if(res.status === 200) return data
-			throw new Error(data.Msg || res.data.message || '/user/me error')
+			const {success, data, message} = res.data
+			if(success) return data
+			throw new Error(message || '/user/me error')
 		})
 
 }
