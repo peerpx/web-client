@@ -51,7 +51,7 @@ class PhotoCard extends Component {
 				}
 
 				<div className="media">
-					{photo.preview && <img src={photo.preview} /> }
+					{photo.preview && <img src={photo.preview} alt={photo.hash} /> }
 					{!photo.preview && <PhotoThumbnail photo={photo} width={900} />}
 				</div>
 
