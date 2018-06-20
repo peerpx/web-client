@@ -89,9 +89,9 @@ export const UserLogin = function(login, password){
 
 	return instance.post('/v1/user/login', data)
 		.then(res => {
-			const data = res.data
-			if(res.status === 200) return data.User
-			throw new Error(data.Msg || data.message || '/user/login error')
+			const {success, data, message} = res.data
+			if(success) return data
+			throw new Error(message || '/user/login error')
 		})
 }
 
@@ -116,9 +116,9 @@ export const UserSignup = function(email, username, password){
 
 	return instance.post('/v1/user', data)
 		.then(res => {
-			const {User, Msg} = res.data
-			if(res.status === 201) return User
-			throw new Error(Msg || res.data.message || '/user error')
+			const {success, data, message} = res.data
+			if(success) return data
+			throw new Error(message || '/user error')
 		})
 
 }
