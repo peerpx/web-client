@@ -36,15 +36,16 @@ export function* uploadFiles(){
 	function* uploadFile(file, properties){
 
 		const obj = {
-			upload: true,
-			progress: 0,
 			id: Math.random(),
-			preview: file.preview
+			name: file.name,
+			upload: {
+				progress: 0,
+				preview: file.preview
+			}
 		}
 
 		// Create the Object in the DataStore
 		yield put({type: actions.UPLOAD_FILE, payload: obj})
-		//return
 
 		// Starts the upload
 		const upload = yield call(api.PhotoUploadProgress, file, properties)
@@ -54,10 +55,11 @@ export function* uploadFiles(){
 			let res
 			while (true) {
 				res = yield take(upload)
-				console.log('>>>', res)
+				console.log('>>>', res, typeof res)
 
 				if(res > 0){
-					yield put({type: actions.UPLOAD_FILE_PROGRESS, payload: {...obj, progress: res}})
+					obj.upload.progress = res
+					yield put({type: actions.UPLOAD_FILE_PROGRESS, payload: obj})
 				}else
 				if(res.success){
 					console.log('👏👏👏', res)

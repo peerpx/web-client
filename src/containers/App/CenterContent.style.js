@@ -7,7 +7,7 @@ export const Centered = styled.div`
 Centered.Content = styled.div`
 	width: 900px;
 	margin: auto;
-	background: #bada55;
+	//background: #bada55;
 	
 	.fullWidth{
 		width: 100%;

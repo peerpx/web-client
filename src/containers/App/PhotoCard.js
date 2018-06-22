@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 	.progress{
 		position: absolute;
 		top: 0; right: 0; left: 0;
+		z-index: 2;
 		transition: all 350ms;
 		
 		&.completed{
@@ -25,10 +26,24 @@ const Wrapper = styled.div`
 	}
 	
 	.media{
+		position: relative;
+
 		img{
 			width: 100%;
-			height: auto;
+			display: block;
+			position: relative;
+			z-index: 1;
+			
+			&.behind-blob{
+				position: absolute;
+				top: 0;
+				left: 0;
+				filter: grayscale(100%);
+				z-index: 0;
+				opacity: 0;
+			}
 		}
+		
 	}
 `
 
@@ -42,19 +57,25 @@ class PhotoCard extends Component {
 			<Wrapper>
 				{/*<pre>{JSON.stringify(this.props.photo, null, 2)}</pre>*/}
 
-				{photo.progress &&
-				<div className={`progress ${photo.progress === 100 ? 'completed' : ''}`}>
-					<div className="bar" style={{width: photo.progress+'%'}}/>
+				{photo.upload &&
+				<div className={`progress ${photo.upload.progress === 100 ? 'completed' : ''}`}>
+					<div className="bar" style={{width: photo.upload.progress+'%'}}/>
 				</div>
 				}
 
 				<div className="media">
-					{photo.preview && <img src={photo.preview} alt={photo.hash} /> }
-					{!photo.preview && <PhotoThumbnail photo={photo} width={900} />}
+					{photo.upload &&
+					<img src={photo.upload.preview} alt={photo.hash} />
+					}
+
+					{photo.hash &&
+						<PhotoThumbnail photo={photo} width={900}
+						                className={!!photo.upload ? 'behind-blob' : ''} />
+					}
 				</div>
 
 				<div className="name">
-					{photo.Name}
+					{photo.name}
 				</div>
 
 			</Wrapper>

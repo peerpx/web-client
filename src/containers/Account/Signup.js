@@ -17,16 +17,16 @@ const errorPassword = () => {
 	message.error('Your password is not valid, please pick another one ! ✌️');
 }
 
-//const	rand = Math.round(Math.random() * 1000)
+const	rand = Math.round(Math.random() * 1000)
 
 //--
 
 class UserCreate extends Component {
 
 	state = {
-		email: '',    //'bm-'+rand+'@kappuccino.org',
-		username: '', //'benjamin'+rand,
-		password: ''  //'benjamin123'
+		email: 'bm-'+rand+'@kappuccino.org',
+		username: 'benjamin'+rand,
+		password: 'benjamin123'
 	}
 
 	isPasswordValid = password => {

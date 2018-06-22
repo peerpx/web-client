@@ -19,11 +19,12 @@ export default function photosReducer(state = initState, action) {
 			}
 
 		case actions.UPLOAD_FILE_PROGRESS:
-			console.log('UPLOAD_FILE_PROGRESS', {state, payload})
+			//console.log('UPLOAD_FILE_PROGRESS', {state, payload})
+
 			return {
 				...state,
 				data: state.data.map(d => {
-					if(d.id === payload.id) return {...payload}
+					if(d.id === payload.id) return {...d, upload: payload.upload}
 					return d
 				})
 			}
@@ -33,7 +34,7 @@ export default function photosReducer(state = initState, action) {
 			return {
 				...state,
 				data: state.data.map(d => {
-					if (d.id === payload.prev.id) return payload.next
+					if (d.id === payload.prev.id) return {...payload.next, upload: payload.prev.upload}
 					return d
 				})
 			}
@@ -42,7 +43,7 @@ export default function photosReducer(state = initState, action) {
 			return {
 				...state,
 				total: payload.Total,
-				data: payload.Data
+				data: payload.Data || []
 			}
 
 
