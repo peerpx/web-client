@@ -32,7 +32,8 @@ export function* searchPhotos(){
 
 export function* uploadFiles(){
 
-	function* uploadFile(file, props){
+
+	function* uploadFile(file, properties){
 
 		const obj = {
 			upload: true,
@@ -46,7 +47,7 @@ export function* uploadFiles(){
 		//return
 
 		// Starts the upload
-		const upload = yield call(api.PhotoUploadProgress, file, props)
+		const upload = yield call(api.PhotoUploadProgress, file, properties)
 
 		// Tick the progress to the Store trough UPLOAD_FILE_PROGRESS
 		try {
@@ -58,9 +59,10 @@ export function* uploadFiles(){
 				if(res > 0){
 					yield put({type: actions.UPLOAD_FILE_PROGRESS, payload: {...obj, progress: res}})
 				}else
-				if(res.code === 0){
+				if(res.success){
 					console.log('👏👏👏', res)
-					yield put({type: actions.UPLOAD_FILE_SUCCESS, payload: {prev: obj, next: res.photoProps}})
+					yield put({type: actions.UPLOAD_FILE_SUCCESS, payload: {prev: obj, next: res.data}})
+					break // ??
 				}
 
 			}
@@ -73,11 +75,17 @@ export function* uploadFiles(){
 
 	yield takeEvery(actions.UPLOAD_FILES, function* ({payload}){
 		//console.log('[SAGA]', 'uploadFiles()', payload)
-		const {files, props} = payload
+		const {files} = payload
 
 		//return console.log(payload)
 
-		yield all(files.map(file => call(uploadFile, file, props)))
+		yield all(files.map(file => {
+			const properties = {
+				name: file.name
+			}
+
+			return call(uploadFile, file, properties)
+		}))
 	})
 
 }

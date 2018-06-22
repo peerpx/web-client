@@ -19,7 +19,7 @@ export default function photosReducer(state = initState, action) {
 			}
 
 		case actions.UPLOAD_FILE_PROGRESS:
-			console.log('UPLOAD_FILE_PROGRESS', payload)
+			console.log('UPLOAD_FILE_PROGRESS', {state, payload})
 			return {
 				...state,
 				data: state.data.map(d => {

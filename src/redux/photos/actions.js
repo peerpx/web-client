@@ -15,9 +15,9 @@ const actions = {
 		type: actions.SEARCH_PHOTOS
 	}),
 
-	uploadFiles: (files, props) => ({
+	uploadFiles: (files) => ({
 		type: actions.UPLOAD_FILES,
-		payload: {files, props}
+		payload: {files}
 	})
 
 	

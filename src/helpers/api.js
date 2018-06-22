@@ -24,7 +24,11 @@ const instance = axios.create({
 
 export const PhotoSearch = function(){
 	return instance.get('/v1/photo/search')
-		.then(res => res.data)
+		.then(res => {
+			const {success, data, message} = res.data
+			if(success) return data
+			throw new Error(message || '/photo/search error')
+		})
 }
 
 export const PhotoUpdate = function(photo){
@@ -43,12 +47,12 @@ export const PhotoDelete = function(hash){
 		})
 }
 
-export const PhotoUploadProgress = function(file, props={}){
+export const PhotoUploadProgress = function(file, properties={}){
 	console.log("uploadProgress()", file)
 
 	const data = new FormData()
 	data.append('file', file)
-	data.append('data', "{}")
+	data.append('properties', JSON.stringify(properties))
 
 	return eventChannel(emitter => {
 
@@ -59,13 +63,15 @@ export const PhotoUploadProgress = function(file, props={}){
 			}
 		})
 		.then(res => {
-			//console.log('RAW', res)
+			console.log('RAW', res)
 
-			if(res.status >= 200 && res.status < 300) {
+			const {success, message} = res.data
+
+			if(success) {
 				emitter(res.data)
 				emitter(END)
 			}else{
-				emitter(new Error('Error while uploading a picture code:'+res.status))
+				emitter(new Error(message || 'Error while uploading a picture code:'+res.status))
 			}
 
 		})
@@ -75,6 +81,7 @@ export const PhotoUploadProgress = function(file, props={}){
 	})
 
 }
+
 
 //-- User
 

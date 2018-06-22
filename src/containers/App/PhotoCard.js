@@ -42,8 +42,6 @@ class PhotoCard extends Component {
 			<Wrapper>
 				{/*<pre>{JSON.stringify(this.props.photo, null, 2)}</pre>*/}
 
-				Progress: {photo.progress} %
-
 				{photo.progress &&
 				<div className={`progress ${photo.progress === 100 ? 'completed' : ''}`}>
 					<div className="bar" style={{width: photo.progress+'%'}}/>

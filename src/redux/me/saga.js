@@ -62,8 +62,10 @@ export function* login(){
 
 export function* logout() {
 	yield takeEvery(actions.LOGOUT, function* () {
-		//console.info('[SAGA] me.logout()')
+		console.info('[SAGA] me.logout()')
 		document.cookie = 'ppx=; expires=Thu, 25 Jun 2015 17:09:01 GMT;'; // 👶 number 2
+
+		console.log(document.cookie)
 		yield put(push('/'))
 	})
 }
@@ -77,8 +79,14 @@ export function* signup(){
 		try{
 			const user = yield api.UserSignup(email, username, password)
 
-			yield put({type: actions.SIGNUP_SUCCESS, payload: user})
+			// Display a message "login success"
 			signupSuccessMessage(user.username)
+
+			// Autolog the user
+			yield put({type: actions.LOGIN, payload: {login:username, password}})
+
+			// Redirect to the acccount
+			yield put({type: actions.SIGNUP_SUCCESS, payload: user})
 
 		} catch(err){
 			console.error('🔥 Error signup', err.message)

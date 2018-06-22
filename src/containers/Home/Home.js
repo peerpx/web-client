@@ -15,8 +15,7 @@ class Home extends Component {
 	}
 
 	handleSelectFile = (files, cb) => {
-		const props = []
-		this.props.uploadFiles(files, props)
+		this.props.uploadFiles(files)
 		cb()
 	}
 
@@ -40,7 +39,7 @@ class Home extends Component {
 						<Centered.Content>
 
 							{this.props.photos.map((p, index) =>
-								<PhotoCard key={p.Hash || index} photo={p} />
+								<PhotoCard key={p.hash || index} photo={p} />
 							)}
 
 						</Centered.Content>
