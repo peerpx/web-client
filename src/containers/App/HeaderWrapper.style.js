@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.header`
 	height: 50px;
 	
 	& > div{
-		padding: 0 5px;
+		padding: 0 15px;
 		align-self: center;
 	}
 	
