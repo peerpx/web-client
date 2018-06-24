@@ -30,7 +30,7 @@ export default function photosReducer(state = initState, action) {
 			}
 
 		case actions.UPLOAD_FILE_SUCCESS:
-			console.log('** UPLOAD_FILE_SUCCESS **', payload)
+			//console.log('** UPLOAD_FILE_SUCCESS **', payload)
 			return {
 				...state,
 				data: state.data.map(d => {
@@ -39,13 +39,19 @@ export default function photosReducer(state = initState, action) {
 				})
 			}
 
+		case actions.UPLOAD_FILE_DUPLICATED:
+			//console.log('** UPLOAD_FILE_DUPLICATED **', payload)
+			return {
+				...state,
+				data: state.data.filter(p => p.id !== payload)
+			}
+
 		case actions.SEARCH_PHOTOS_SUCCESS:
 			return {
 				...state,
 				total: payload.Total,
 				data: payload.Data || []
 			}
-
 
 		default:
 			return state

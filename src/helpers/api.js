@@ -48,7 +48,7 @@ export const PhotoDelete = function(hash){
 }
 
 export const PhotoUploadProgress = function(file, properties={}){
-	console.log("uploadProgress()", file)
+	//console.log("uploadProgress()", file)
 
 	const data = new FormData()
 	data.append('file', file)
@@ -63,13 +63,16 @@ export const PhotoUploadProgress = function(file, properties={}){
 			}
 		})
 		.then(res => {
-			console.log('RAW', res)
+			//console.log('RAW', res)
 
-			const {success, message} = res.data
+			const {success, code, message} = res.data
 
 			if(success) {
 				emitter(res.data)
 				emitter(END)
+			}else
+			if(code === 'duplicate'){
+				emitter(new Error('duplicate'))
 			}else{
 				emitter(new Error(message || 'Error while uploading a picture code:'+res.status))
 			}

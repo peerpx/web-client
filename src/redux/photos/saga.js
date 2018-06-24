@@ -55,14 +55,14 @@ export function* uploadFiles(){
 			let res
 			while (true) {
 				res = yield take(upload)
-				console.log('>>>', res, typeof res)
+				//console.log('>>>', res, typeof res)
 
 				if(res > 0){
 					obj.upload.progress = res
 					yield put({type: actions.UPLOAD_FILE_PROGRESS, payload: obj})
 				}else
 				if(res.success){
-					console.log('👏👏👏', res)
+					//console.log('👏👏👏', res)
 					yield put({type: actions.UPLOAD_FILE_SUCCESS, payload: {prev: obj, next: res.data}})
 					break // ??
 				}
@@ -70,8 +70,13 @@ export function* uploadFiles(){
 			}
 		}
 		catch(err){
-			console.error('Fuck !', err)
-			errorUpload(err.message)
+			if(err.message === 'duplicate'){
+				errorUpload('This image already exists !')
+				yield put({type: actions.UPLOAD_FILE_DUPLICATED, payload: obj.id})
+			}else {
+				console.error('Fuck !', err)
+				errorUpload(err.message)
+			}
 		}
 	}
 
