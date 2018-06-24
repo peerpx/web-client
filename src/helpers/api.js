@@ -105,6 +105,18 @@ export const UserLogin = function(login, password){
 		})
 }
 
+export const UserLogout = function(){
+
+	//console.log('[API] UserLogout')
+
+	return instance.post('/v1/user/logout')
+		.then(res => {
+			const {success, message} = res.data
+			if(success) return true
+			throw new Error(message || '/user/logout error')
+		})
+}
+
 export const UserMe = function(){
 
 	return instance.get('/v1/user/me')

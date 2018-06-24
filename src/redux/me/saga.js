@@ -25,7 +25,6 @@ export function* checkMe() {
 
 		try{
 			const user = yield api.UserMe()
-			//console.log('so user is', user)
 
 			if(user){
 				yield put({type: actions.LOGIN_SUCCESS, payload: user})
@@ -62,11 +61,19 @@ export function* login(){
 
 export function* logout() {
 	yield takeEvery(actions.LOGOUT, function* () {
-		console.info('[SAGA] me.logout()')
-		document.cookie = 'ppx=; expires=Thu, 25 Jun 2015 17:09:01 GMT;'; // 👶 number 2
+		//console.info('[SAGA] me.logout()')
 
-		console.log(document.cookie)
-		yield put(push('/'))
+		try{
+			yield api.UserLogout()
+
+			document.cookie = 'ppx=; expires=Thu, 25 Jun 2015 17:09:01 GMT;'; // 👶 number 2
+			yield put({type: actions.LOGOUT_SUCCESS})
+			yield put(push('/'))
+
+		} catch (err) {
+			console.error('🔥 Error Logout', err.message)
+		}
+
 	})
 }
 

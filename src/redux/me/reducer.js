@@ -14,7 +14,7 @@ export default function meReducer(state = initState, action) {
 		case actions.SIGNUP_SUCCESS:
 			return payload
 
-		case actions.LOGOUT:
+		case actions.LOGOUT_SUCCESS:
 			return {}
 
 		default:
